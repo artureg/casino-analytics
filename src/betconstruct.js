@@ -23,8 +23,8 @@ export async function betconstructLoadReport(url, delayAfterGenerationMs = 60 * 
 
   // Вводим логин/пароль
   await page.waitForSelector('input[data-key="email"]');
-  await page.type('input[data-key="email"]', 'paliashcuk.a@ns.cards');
-  await page.type('input[data-key="password"]', 'PAdmin-25925!');
+  await page.type('input[data-key="email"]', process.env.BETCONSTRUCT_USER);
+  await page.type('input[data-key="password"]', process.env.BETCONSTRUCT_PASSWORD);
   await page.click('li.c-footer > button');
 
   // Ждём перехода после логина
@@ -32,7 +32,7 @@ export async function betconstructLoadReport(url, delayAfterGenerationMs = 60 * 
 
   // === 2. 2FA ===
   await page.waitForSelector('input[type="number"][placeholder="Pin code"]');
-  const code = authenticator.generate("HWEGQ6CS4WF3EDR3R3UIC354NWWI3GWF");
+  const code = authenticator.generate(process.env.BETCONSTRUCT_2FA_SECRET);
   await page.type('input[type="number"][placeholder="Pin code"]', code);
   await page.click('li.c-footer > button');
 

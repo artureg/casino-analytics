@@ -40,14 +40,8 @@ export function dedupeAndToValues(data) {
          map.set(id, item);
       }
    }
-
-   // Преобразуем в массив значений
    const uniqueObjects = Array.from(map.values());
-
-   // Если нужно сохранить порядок колонок — берём из первой записи
    const columns = uniqueObjects.length > 0 ? Object.keys(uniqueObjects[0]) : [];
-
-   // Массив значений
    const values = uniqueObjects.map(obj => columns.map(col => obj[col]));
 
    return values;
